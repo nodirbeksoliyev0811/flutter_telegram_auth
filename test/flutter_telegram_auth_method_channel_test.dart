@@ -12,7 +12,10 @@ void main() {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(
       channel,
       (MethodCall methodCall) async {
-        return '42';
+        if (methodCall.method == 'login') {
+          return 'mock_token_123';
+        }
+        return null;
       },
     );
   });
@@ -21,7 +24,7 @@ void main() {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
   });
 
-  test('getPlatformVersion', () async {
-    expect(await platform.getPlatformVersion(), '42');
+  test('login', () async {
+    expect(await platform.login(), 'mock_token_123');
   });
 }

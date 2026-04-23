@@ -9,7 +9,12 @@ class MockFlutterTelegramAuthPlatform
     implements FlutterTelegramAuthPlatform {
 
   @override
-  Future<String?> getPlatformVersion() => Future.value('42');
+  Future<void> init({required String clientId, required String redirectUri, List<String> scopes = const ['profile', 'phone']}) async {
+    return;
+  }
+
+  @override
+  Future<String?> login() => Future.value('mock_id_token');
 }
 
 void main() {
@@ -19,11 +24,10 @@ void main() {
     expect(initialPlatform, isInstanceOf<MethodChannelFlutterTelegramAuth>());
   });
 
-  test('getPlatformVersion', () async {
-    FlutterTelegramAuth flutterTelegramAuthPlugin = FlutterTelegramAuth();
+  test('login', () async {
     MockFlutterTelegramAuthPlatform fakePlatform = MockFlutterTelegramAuthPlatform();
     FlutterTelegramAuthPlatform.instance = fakePlatform;
 
-    expect(await flutterTelegramAuthPlugin.getPlatformVersion(), '42');
+    expect(await FlutterTelegramAuth.login(), 'mock_id_token');
   });
 }
