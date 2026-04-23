@@ -39,7 +39,7 @@ Telegram's iOS SDK is distributed via Swift Package Manager (SPM). Since you are
 
 1. Open `ios/Runner.xcworkspace` in Xcode.
 2. Go to **File > Add Package Dependencies...**
-3. Enter the URL: `https://github.com/TelegramMessenger/telegram-login-ios`
+3. Enter the URL: [https://github.com/TelegramMessenger/telegram-login-ios](https://github.com/TelegramMessenger/telegram-login-ios)
 4. Add the `TelegramLogin` package to your `Runner` target.
 5. In Xcode, select your app target, go to **Signing & Capabilities**, click **+ Capability**, and add **Associated Domains**. Add your Universal Link (e.g., `applinks:app123456-login.tg.dev`).
 
