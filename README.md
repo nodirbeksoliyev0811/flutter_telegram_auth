@@ -10,6 +10,10 @@ A Flutter plugin for integrating [Telegram Native SDKs](https://core.telegram.or
 ## Installation
 
 Add the plugin to your `pubspec.yaml`.
+```yaml
+dependencies:
+  flutter_telegram_auth: ^0.0.2
+```
 
 ### Android Configuration
 
@@ -21,8 +25,8 @@ Update your app's `android/app/src/main/AndroidManifest.xml` to handle the redir
         <action android:name="android.intent.action.VIEW" />
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
-        <data android:scheme="https" 
-              android:host="YOUR_BOT_DOMAIN-login.tg.dev" />
+        <!-- Replace app123456 with your specific BotFather domain -->
+        <data android:scheme="https" android:host="app123456-login.tg.dev" />
     </intent-filter>
 </activity>
 ```
@@ -44,12 +48,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_telegram_auth/flutter_telegram_auth.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
-  _MyAppState createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
