@@ -1,3 +1,7 @@
+## 0.0.5
+
+* Cleaned up documentation and updated dependency versions in README.
+
 ## 0.0.4
 
 * Added `getLocalUserFromToken()` utility method to easily decode the JWT payload in Dart without backend logic.
