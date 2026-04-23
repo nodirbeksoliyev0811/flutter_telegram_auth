@@ -1,3 +1,5 @@
 ## 0.0.1
 
-* TODO: Describe initial release.
+* Initial release.
+* Support for Android Native Telegram Login.
+* Support for iOS Native Telegram Login.
