@@ -1,3 +1,8 @@
+## 0.0.6
+
+* Fixed Gradle build error (NullPointerException) in host applications by restoring `android/build.gradle`.
+* Improved Android build configuration for better compatibility with AGP 8+.
+
 ## 0.0.5
 
 * Added `photoUri` getter to `TelegramUser` model.

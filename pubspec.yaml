@@ -1,6 +1,6 @@
 name: flutter_telegram_auth
 description: "A Flutter plugin for integrating Telegram Native Login SDKs for Android and iOS without webviews."
-version: 0.0.5
+version: 0.0.6
 homepage: "https://github.com/nodirbeksoliyev0811/flutter_telegram_auth"
 repository: "https://github.com/nodirbeksoliyev0811/flutter_telegram_auth"
 
