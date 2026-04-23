@@ -14,7 +14,7 @@ A Flutter plugin for integrating [Telegram Native SDKs](https://core.telegram.or
 Add the plugin to your `pubspec.yaml`.
 ```yaml
 dependencies:
-  flutter_telegram_auth: ^0.0.2
+  flutter_telegram_auth: ^0.0.4
 ```
 
 ### Android Configuration
