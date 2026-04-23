@@ -1,3 +1,8 @@
+## 0.0.3
+
+* Fixed iOS Universal Links support (`continueUserActivity`).
+* Improved README.md documentation with clickable URLs and explicit platform support badges.
+
 ## 0.0.2
 
 * Bundled Android `login-sdk.aar` directly into the plugin to remove the requirement for GitHub Packages authentication.
