@@ -1,3 +1,7 @@
+## 0.0.4
+
+* Added `getLocalUserFromToken()` utility method to easily decode the JWT payload in Dart without backend logic.
+
 ## 0.0.3
 
 * Fixed iOS Universal Links support (`continueUserActivity`).

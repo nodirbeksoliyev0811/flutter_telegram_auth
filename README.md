@@ -85,10 +85,16 @@ class _MyAppState extends State<MyApp> {
       // 2. Start Login Flow
       final idToken = await FlutterTelegramAuth.login();
       if (idToken != null) {
+        // You can decode the token locally to immediately show user details
+        final user = FlutterTelegramAuth.getLocalUserFromToken(idToken);
+        final firstName = user?['first_name'] ?? 'User';
+
         setState(() {
-          _status = 'Success! JWT: $idToken';
+          _status = 'Success! Welcome $firstName\nJWT: $idToken';
         });
-        // Important: Send this idToken to your backend for verification!
+        
+        // Important: You MUST still send this idToken to your backend 
+        // to verify its cryptographic signature!
       }
     } catch (e) {
       setState(() {

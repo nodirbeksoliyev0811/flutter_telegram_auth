@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'flutter_telegram_auth_platform_interface.dart';
 
 class FlutterTelegramAuth {
@@ -17,5 +18,27 @@ class FlutterTelegramAuth {
   /// Starts the Telegram login flow. Returns the ID token as a String, or null if cancelled/failed.
   static Future<String?> login() {
     return FlutterTelegramAuthPlatform.instance.login();
+  }
+
+  /// Decodes the JWT token locally to extract user data (id, first_name, username, etc.)
+  /// NOTE: This only decodes the payload for local UI convenience. 
+  /// You MUST still verify the token's signature on your backend!
+  static Map<String, dynamic>? getLocalUserFromToken(String token) {
+    try {
+      final parts = token.split('.');
+      if (parts.length != 3) return null;
+
+      String payload = parts[1];
+      // Pad with '=' so length is a multiple of 4
+      int paddingLength = 4 - (payload.length % 4);
+      if (paddingLength > 0 && paddingLength < 4) {
+        payload += '=' * paddingLength;
+      }
+
+      final String decodedPayload = utf8.decode(base64Url.decode(payload));
+      return jsonDecode(decodedPayload) as Map<String, dynamic>;
+    } catch (e) {
+      return null;
+    }
   }
 }
