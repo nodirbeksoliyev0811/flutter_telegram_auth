@@ -67,4 +67,11 @@ android {
             }
         }
     }
+
+    // Ensure the local AAR is discoverable when the plugin is used as a dependency
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
 }

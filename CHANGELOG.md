@@ -1,3 +1,7 @@
+## 0.0.7
+
+* Fixed `login-sdk.aar` resolution issue when the plugin is used as a dependency in other projects.
+
 ## 0.0.6
 
 * Fixed Gradle build error (NullPointerException) in host applications by restoring `android/build.gradle`.
