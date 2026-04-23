@@ -1,5 +1,8 @@
 import 'dart:convert';
 import 'flutter_telegram_auth_platform_interface.dart';
+import 'src/telegram_user.dart';
+
+export 'src/telegram_user.dart';
 
 class FlutterTelegramAuth {
   /// Initializes the Telegram SDK. Call this before [login].
@@ -20,10 +23,10 @@ class FlutterTelegramAuth {
     return FlutterTelegramAuthPlatform.instance.login();
   }
 
-  /// Decodes the JWT token locally to extract user data (id, first_name, username, etc.)
+  /// Decodes the JWT token locally and returns a [TelegramUser] object.
   /// NOTE: This only decodes the payload for local UI convenience. 
   /// You MUST still verify the token's signature on your backend!
-  static Map<String, dynamic>? getLocalUserFromToken(String token) {
+  static TelegramUser? getLocalUserFromToken(String token) {
     try {
       final parts = token.split('.');
       if (parts.length != 3) return null;
@@ -36,7 +39,8 @@ class FlutterTelegramAuth {
       }
 
       final String decodedPayload = utf8.decode(base64Url.decode(payload));
-      return jsonDecode(decodedPayload) as Map<String, dynamic>;
+      final Map<String, dynamic> json = jsonDecode(decodedPayload);
+      return TelegramUser.fromJson(json);
     } catch (e) {
       return null;
     }

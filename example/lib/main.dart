@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
       if (idToken != null) {
         // Ma'lumotlarni yechib olish
         final user = FlutterTelegramAuth.getLocalUserFromToken(idToken);
-        final firstName = user?['first_name'] ?? 'User';
+        final firstName = user?.firstName ?? 'User';
         
         setState(() {
           _status = 'Success! Welcome, $firstName\n\nJWT Token: ${idToken.substring(0, 20)}...';

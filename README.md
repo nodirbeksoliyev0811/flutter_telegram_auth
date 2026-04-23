@@ -87,7 +87,7 @@ class _MyAppState extends State<MyApp> {
       if (idToken != null) {
         // You can decode the token locally to immediately show user details
         final user = FlutterTelegramAuth.getLocalUserFromToken(idToken);
-        final firstName = user?['first_name'] ?? 'User';
+        final firstName = user?.firstName ?? 'User';
 
         setState(() {
           _status = 'Success! Welcome $firstName\nJWT: $idToken';
