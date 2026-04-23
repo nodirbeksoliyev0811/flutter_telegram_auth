@@ -25,8 +25,8 @@ Update your app's `android/app/src/main/AndroidManifest.xml` to handle the redir
         <action android:name="android.intent.action.VIEW" />
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
-        <!-- Replace app123456 with your specific BotFather domain -->
-        <data android:scheme="https" android:host="app123456-login.tg.dev" />
+        <!-- Replace app12345678 with your specific BotFather domain -->
+        <data android:scheme="https" android:host="app12345678-login.tg.dev" />
     </intent-filter>
 </activity>
 ```
@@ -40,6 +40,13 @@ Telegram's iOS SDK is distributed via Swift Package Manager (SPM). Since you are
 3. Enter the URL: `https://github.com/TelegramMessenger/telegram-login-ios`
 4. Add the `TelegramLogin` package to your `Runner` target.
 5. In Xcode, select your app target, go to **Signing & Capabilities**, click **+ Capability**, and add **Associated Domains**. Add your Universal Link (e.g., `applinks:app123456-login.tg.dev`).
+
+### ⚠️ Important Note About Redirect URIs
+
+The domain `app12345678-login.tg.dev` used in the examples above is **just an example**. 
+When you configure your app in `@BotFather`, Telegram will generate a unique domain specifically for your application. You **must** replace `app12345678-login.tg.dev` with your own BotFather-generated domain in both your `AndroidManifest.xml`, iOS `Associated Domains`, and the Dart `init()` method.
+
+Additionally, you can append a custom path to your redirect URI in your Dart code (e.g., `https://app12345678-login.tg.dev/login`). This allows you to use Flutter routing libraries (like `go_router` or `auto_route`) to automatically catch the deep link and route the user directly to the specific login screen within your app when they return from Telegram.
 
 ## Usage
 
@@ -67,7 +74,7 @@ class _MyAppState extends State<MyApp> {
     // 1. Initialize the SDK
     FlutterTelegramAuth.init(
       clientId: 'YOUR_BOT_ID', 
-      redirectUri: 'https://app123456-login.tg.dev/tglogin', // From BotFather
+      redirectUri: 'https://app12345678-login.tg.dev/tglogin', // From BotFather
     );
   }
 
