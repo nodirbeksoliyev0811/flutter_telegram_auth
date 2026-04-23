@@ -27,6 +27,9 @@ class TelegramUser {
     );
   }
 
+  /// Returns the photo URL as a [Uri] object for convenience.
+  Uri? get photoUri => photoUrl != null ? Uri.tryParse(photoUrl!) : null;
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,

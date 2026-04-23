@@ -44,5 +44,22 @@ class FlutterTelegramAuth {
     } catch (e) {
       return null;
     }
+  /// Checks if the JWT token has expired locally.
+  static bool isTokenExpired(String token) {
+    try {
+      final user = getLocalUserFromToken(token);
+      if (user?.authDate == null) return true;
+
+      // Telegram tokens are usually valid for a long time, 
+      // but developers often check against 24h or similar.
+      // Here we just provide the basic logic.
+      final authDateTime = DateTime.fromMillisecondsSinceEpoch(user!.authDate! * 1000);
+      final now = DateTime.now();
+      
+      // Example: If it's more than 30 days old, consider it expired
+      return now.difference(authDateTime).inDays > 30;
+    } catch (e) {
+      return true;
+    }
   }
 }

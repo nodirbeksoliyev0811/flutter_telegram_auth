@@ -1,5 +1,7 @@
 ## 0.0.5
 
+* Added `photoUri` getter to `TelegramUser` model.
+* Added `isTokenExpired()` utility method to check token validity.
 * Cleaned up documentation and updated dependency versions in README.
 
 ## 0.0.4
