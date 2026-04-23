@@ -13,27 +13,19 @@ Add the plugin to your `pubspec.yaml`.
 
 ### Android Configuration
 
-Telegram's Android SDK is hosted on GitHub Packages. You must authenticate to download it.
-
-1. Create a [GitHub Personal Access Token](https://github.com/settings/tokens) with the `read:packages` permission.
-2. Provide these credentials to Gradle. Add them to your `~/.gradle/gradle.properties` (or `C:\Users\YOUR_USER\.gradle\gradle.properties` on Windows):
-   ```properties
-   gpr.user=YOUR_GITHUB_USERNAME
-   gpr.key=YOUR_GITHUB_TOKEN
-   ```
-3. Update your app's `android/app/src/main/AndroidManifest.xml` to handle the redirect URI, ensuring `android:autoVerify="true"` is set. Example:
-   ```xml
-   <activity android:name=".MainActivity" android:launchMode="singleTask">
-       <intent-filter android:autoVerify="true">
-           <action android:name="android.intent.action.VIEW" />
-           <category android:name="android.intent.category.DEFAULT" />
-           <category android:name="android.intent.category.BROWSABLE" />
-           <data android:scheme="https" 
-                 android:host="app123456-login.tg.dev" 
-                 android:pathPrefix="/tglogin" />
-       </intent-filter>
-   </activity>
-   ```
+Update your app's `android/app/src/main/AndroidManifest.xml` to handle the redirect URI, ensuring `android:autoVerify="true"` is set. Example:
+```xml
+<activity android:name=".MainActivity" android:launchMode="singleTask">
+    <!-- Telegram Login Redirect -->
+    <intent-filter android:autoVerify="true">
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="https" 
+              android:host="YOUR_BOT_DOMAIN-login.tg.dev" />
+    </intent-filter>
+</activity>
+```
 
 ### iOS Configuration
 

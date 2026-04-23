@@ -20,8 +20,8 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     // Initialize the SDK
     FlutterTelegramAuth.init(
-      clientId: 'YOUR_BOT_ID',
-      redirectUri: 'https://app123456-login.tg.dev/tglogin',
+      clientId: '8063351887',
+      redirectUri: 'https://app3494213568-login.tg.dev',
     );
   }
 

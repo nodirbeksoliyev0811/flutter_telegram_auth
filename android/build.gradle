@@ -18,12 +18,8 @@ rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
-        maven {
-            url "https://maven.pkg.github.com/TelegramMessenger/telegram-login-android"
-            credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USERNAME")
-                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
-            }
+        flatDir {
+            dirs project(':flutter_telegram_auth').file('libs')
         }
     }
 }
@@ -55,7 +51,7 @@ android {
     }
 
     dependencies {
-        implementation 'org.telegram:login-sdk:1.0.0'
+        implementation name: 'login-sdk', ext: 'aar'
         testImplementation("org.jetbrains.kotlin:kotlin-test")
         testImplementation("org.mockito:mockito-core:5.0.0")
     }
