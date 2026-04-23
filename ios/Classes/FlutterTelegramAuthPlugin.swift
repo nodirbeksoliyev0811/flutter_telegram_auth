@@ -61,4 +61,20 @@ public class FlutterTelegramAuthPlugin: NSObject, FlutterPlugin {
     #endif
     return false
   }
+
+  public func application(
+    _ application: UIApplication,
+    continue userActivity: NSUserActivity,
+    restorationHandler: @escaping ([Any]) -> Void
+  ) -> Bool {
+    #if canImport(TelegramLogin)
+    if userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+       let url = userActivity.webpageURL,
+       url.host == expectedHost {
+      TelegramLogin.handle(url)
+      return true
+    }
+    #endif
+    return false
+  }
 }
