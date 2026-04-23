@@ -44,6 +44,8 @@ class FlutterTelegramAuth {
     } catch (e) {
       return null;
     }
+  }
+
   /// Checks if the JWT token has expired locally.
   static bool isTokenExpired(String token) {
     try {
