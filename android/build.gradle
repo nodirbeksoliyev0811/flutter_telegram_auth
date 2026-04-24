@@ -14,12 +14,12 @@ buildscript {
     }
 }
 
-allprojects {
+rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
         flatDir {
-            dirs project(':flutter_telegram_auth').file('libs')
+            dirs project(':flutter_telegram_auth').projectDir.absolutePath + '/libs'
         }
     }
 }
@@ -68,10 +68,4 @@ android {
         }
     }
 
-    // Ensure the local AAR is discoverable when the plugin is used as a dependency
-    repositories {
-        flatDir {
-            dirs 'libs'
-        }
-    }
 }

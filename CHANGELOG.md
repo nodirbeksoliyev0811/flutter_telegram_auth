@@ -1,3 +1,9 @@
+## 0.0.8
+
+* Fixed `login-sdk.aar` resolution issue when the plugin is used as a dependency in other projects.
+* Improved Android build configuration by implementing `rootProject` repository injection for seamless AAR discovery.
+* Updated documentation and example app to reflect the latest stable build.
+
 ## 0.0.7
 
 * Fixed `login-sdk.aar` resolution issue when the plugin is used as a dependency in other projects.
