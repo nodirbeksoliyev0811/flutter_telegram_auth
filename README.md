@@ -14,7 +14,7 @@ A Flutter plugin for integrating [Telegram Native SDKs](https://core.telegram.or
 Add the plugin to your `pubspec.yaml`.
 ```yaml
 dependencies:
-  flutter_telegram_auth: ^0.0.8
+  flutter_telegram_auth: ^0.0.9
 ```
 
 ### Android Configuration
@@ -49,6 +49,12 @@ The domain `app12345678-login.tg.dev` used in the examples above is **just an ex
 When you configure your app in `@BotFather`, Telegram will generate a unique domain specifically for your application. You **must** replace `app12345678-login.tg.dev` with your own BotFather-generated domain in both your `AndroidManifest.xml`, iOS `Associated Domains`, and the Dart `init()` method.
 
 Additionally, you can append a custom path to your redirect URI in your Dart code (e.g., `https://app12345678-login.tg.dev/login`). This allows you to use Flutter routing libraries (like `go_router` or `auto_route`) to automatically catch the deep link and route the user directly to the specific login screen within your app when they return from Telegram.
+
+### 🔍 Troubleshooting: Browser opening instead of App
+If the web browser opens instead of the Telegram app (or stays in the browser after login):
+1. **Android 11+ Package Visibility**: Ensure your app can "see" Telegram. This plugin already includes the necessary `<queries>` in its `AndroidManifest.xml`, but if you have a custom setup, make sure you can query `org.telegram.messenger`.
+2. **SHA-256 Fingerprint**: Go to [@BotFather](https://t.me/botfather) > Bot Settings > Domain > (Select your domain) and ensure you have provided the **correct SHA-256 fingerprint** of your app's signing certificate. If the fingerprint is missing or incorrect, Android will not verify the link and will default to the browser.
+3. **App Links Verification**: Check your app settings on the device under "Open by default" and ensure "Open supported links" is toggled on.
 
 ## Usage
 

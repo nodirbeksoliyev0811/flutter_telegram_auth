@@ -1,3 +1,9 @@
+## 0.0.9
+
+* Enhanced Telegram app discovery on Android by adding intent-based queries and expanding package visibility.
+* Fixed edge cases where the SDK would fallback to the browser even when Telegram was installed.
+* Updated documentation with troubleshooting tips for App Links and SHA-256 fingerprint verification.
+
 ## 0.0.8
 
 * Fixed `login-sdk.aar` resolution issue when the plugin is used as a dependency in other projects.
