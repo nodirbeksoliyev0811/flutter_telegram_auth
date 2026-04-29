@@ -16,7 +16,7 @@ void main() {
 }
 
 void _checkAndroid() {
-  print('Checking Android configuration...');
+  print('Android');
   final manifestPath = 'android/app/src/main/AndroidManifest.xml';
   final file = File(manifestPath);
 
@@ -49,7 +49,7 @@ void _checkAndroid() {
 }
 
 void _checkIOS() {
-  print('Checking iOS configuration...');
+  print('iOS');
   final plistPath = 'ios/Runner/Info.plist';
   final file = File(plistPath);
 
@@ -86,7 +86,7 @@ void _checkIOS() {
 }
 
 void _checkWeb() {
-  print('Checking Web configuration...');
+  print('Web');
   final webFile = File('web/telegram_login.html');
 
   if (webFile.existsSync()) {

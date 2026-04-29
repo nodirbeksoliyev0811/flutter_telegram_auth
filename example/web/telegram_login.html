@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head><title>Telegram Auth Callback</title></head>
+<body>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const data = Object.fromEntries(urlParams.entries());
+        if (data.hash && window.opener) {
+            window.opener.postMessage('tgAuthResult=' + JSON.stringify(data), '*');
+            window.close();
+        } else {
+            document.write("Authentication failed or opened outside of popup.");
+        }
+    </script>
+</body>
+</html>
