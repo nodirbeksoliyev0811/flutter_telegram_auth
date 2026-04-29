@@ -14,7 +14,7 @@ A Flutter plugin for integrating Telegram Login across Android, iOS, and Web. It
 Add the plugin to your `pubspec.yaml`.
 ```yaml
 dependencies:
-  flutter_telegram_auth: ^0.0.9
+  flutter_telegram_auth: ^0.1.0
 ```
 
 ### Android Configuration
