@@ -62,7 +62,7 @@ If the web browser opens instead of the Telegram app (or stays in the browser af
 
 1. **Missing OS Intent Schemes**: 
    - **iOS**: You MUST add `tg` to `LSApplicationQueriesSchemes` in your `ios/Runner/Info.plist` (see step 6 in iOS configuration).
-   - **Android**: The plugin automatically handles app discovery for official Telegram and its popular clones (like Telegram X) out-of-the-box. You usually do not need to write any extra code. If it still falls back to the browser, the issue is almost always caused by an incorrect SHA-256 fingerprint (see Step 2 below).
+   - **Android**: The plugin automatically handles app discovery for official Telegram and its popular clones (like Telegram X) out-of-the-box. You usually do not need to write any extra code.
 2. **SHA-256 Fingerprint**: Go to [@BotFather](https://t.me/botfather) > Bot Settings > Domain > (Select your domain) and ensure you have provided the **correct SHA-256 fingerprint** of your app's signing certificate. If the fingerprint is missing or incorrect, Android will not verify the link and will default to the browser.
 3. **App Links Verification**: Check your app settings on the device under "Open by default" and ensure "Open supported links" is toggled on.
 
