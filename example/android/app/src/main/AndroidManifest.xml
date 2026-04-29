@@ -30,7 +30,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="https" 
-                      android:host="app2557865933-login.tg.dev" />
+                      android:host="app12345678-login.tg.dev" />
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.
