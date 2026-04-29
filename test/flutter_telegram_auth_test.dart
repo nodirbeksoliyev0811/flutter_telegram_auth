@@ -7,9 +7,12 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 class MockFlutterTelegramAuthPlatform
     with MockPlatformInterfaceMixin
     implements FlutterTelegramAuthPlatform {
-
   @override
-  Future<void> init({required String clientId, required String redirectUri, List<String> scopes = const ['profile', 'phone']}) async {
+  Future<void> init({
+    required String clientId,
+    required String redirectUri,
+    List<String> scopes = const ['profile', 'phone'],
+  }) async {
     return;
   }
 
@@ -18,14 +21,16 @@ class MockFlutterTelegramAuthPlatform
 }
 
 void main() {
-  final FlutterTelegramAuthPlatform initialPlatform = FlutterTelegramAuthPlatform.instance;
+  final FlutterTelegramAuthPlatform initialPlatform =
+      FlutterTelegramAuthPlatform.instance;
 
   test('$MethodChannelFlutterTelegramAuth is the default instance', () {
     expect(initialPlatform, isInstanceOf<MethodChannelFlutterTelegramAuth>());
   });
 
   test('login', () async {
-    MockFlutterTelegramAuthPlatform fakePlatform = MockFlutterTelegramAuthPlatform();
+    MockFlutterTelegramAuthPlatform fakePlatform =
+        MockFlutterTelegramAuthPlatform();
     FlutterTelegramAuthPlatform.instance = fakePlatform;
 
     expect(await FlutterTelegramAuth.login(), 'mock_id_token');

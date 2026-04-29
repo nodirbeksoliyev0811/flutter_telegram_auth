@@ -8,7 +8,8 @@ abstract class FlutterTelegramAuthPlatform extends PlatformInterface {
 
   static final Object _token = Object();
 
-  static FlutterTelegramAuthPlatform _instance = MethodChannelFlutterTelegramAuth();
+  static FlutterTelegramAuthPlatform _instance =
+      MethodChannelFlutterTelegramAuth();
 
   /// The default instance of [FlutterTelegramAuthPlatform] to use.
   ///

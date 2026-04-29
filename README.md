@@ -50,6 +50,34 @@ Telegram's iOS SDK is distributed via Swift Package Manager (SPM). Since you are
 </array>
 ```
 
+### Web Configuration
+
+For Flutter Web, the login flow uses a secure popup window. You need to host a tiny HTML file on your server to handle the Telegram redirect and pass the authentication data back to your Flutter app.
+
+1. Create a file named `telegram_login.html` inside your project's `web/` folder.
+2. Paste the following code into `telegram_login.html`:
+```html
+<!DOCTYPE html>
+<html>
+<head><title>Telegram Auth</title></head>
+<body>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const data = Object.fromEntries(urlParams.entries());
+        if (data.hash && window.opener) {
+            window.opener.postMessage('tgAuthResult=' + JSON.stringify(data), '*');
+            window.close();
+        } else {
+            document.write("Authentication failed or opened outside of popup.");
+        }
+    </script>
+</body>
+</html>
+```
+3. When initializing the plugin on the Web, set your `redirectUri` to point exactly to this file (e.g., `https://your-domain.com/telegram_login.html`).
+
+**⚠️ Important Web Note:** Unlike mobile (which returns a JWT token), the Web plugin returns a **JSON String** containing raw user data and an HMAC `hash`. You must verify this `hash` on your backend using your Bot Token. See Telegram's [Web validation docs](https://core.telegram.org/widgets/login#checking-authorization).
+
 ### ⚠️ Important Note About Redirect URIs
 
 The domain `app12345678-login.tg.dev` used in the examples above is **just an example**. 

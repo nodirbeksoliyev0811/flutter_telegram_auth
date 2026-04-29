@@ -24,7 +24,7 @@ class FlutterTelegramAuth {
   }
 
   /// Decodes the JWT token locally and returns a [TelegramUser] object.
-  /// NOTE: This only decodes the payload for local UI convenience. 
+  /// NOTE: This only decodes the payload for local UI convenience.
   /// You MUST still verify the token's signature on your backend!
   static TelegramUser? getLocalUserFromToken(String token) {
     try {
@@ -52,12 +52,14 @@ class FlutterTelegramAuth {
       final user = getLocalUserFromToken(token);
       if (user?.authDate == null) return true;
 
-      // Telegram tokens are usually valid for a long time, 
+      // Telegram tokens are usually valid for a long time,
       // but developers often check against 24h or similar.
       // Here we just provide the basic logic.
-      final authDateTime = DateTime.fromMillisecondsSinceEpoch(user!.authDate! * 1000);
+      final authDateTime = DateTime.fromMillisecondsSinceEpoch(
+        user!.authDate! * 1000,
+      );
       final now = DateTime.now();
-      
+
       // Example: If it's more than 30 days old, consider it expired
       return now.difference(authDateTime).inDays > 30;
     } catch (e) {
