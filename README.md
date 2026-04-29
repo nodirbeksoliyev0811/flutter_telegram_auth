@@ -76,7 +76,7 @@ For Flutter Web, the login flow uses a secure popup window. You need to host a t
 ```
 3. When initializing the plugin on the Web, set your `redirectUri` to point exactly to this file (e.g., `https://your-domain.com/telegram_login.html`).
 
-**⚠️ Important Web Note:** Unlike mobile (which returns a JWT token), the Web plugin returns a **JSON String** containing raw user data and an HMAC `hash`. You must verify this `hash` on your backend using your Bot Token. See Telegram's [Web validation docs](https://core.telegram.org/widgets/login#checking-authorization).
+**ℹ️ Important Web Note:** Unlike mobile (which returns a JWT token), the Web plugin returns a **JSON String** containing raw user data and an HMAC `hash`. You must verify this `hash` on your backend using your Bot Token. See Telegram's [Web validation docs](https://core.telegram.org/widgets/login#checking-authorization).
 
 ### ⚠️ Important Note About Redirect URIs
 
@@ -85,14 +85,7 @@ When you configure your app in `@BotFather`, Telegram will generate a unique dom
 
 Additionally, you can append a custom path to your redirect URI in your Dart code (e.g., `https://app12345678-login.tg.dev/login`). This allows you to use Flutter routing libraries (like `go_router` or `auto_route`) to automatically catch the deep link and route the user directly to the specific login screen within your app when they return from Telegram.
 
-### 🔍 Troubleshooting: Browser opening instead of App
-If the web browser opens instead of the Telegram app (or stays in the browser after login):
 
-1. **Missing OS Intent Schemes**: 
-   - **iOS**: You MUST add `tg` to `LSApplicationQueriesSchemes` in your `ios/Runner/Info.plist` (see step 6 in iOS configuration).
-   - **Android**: The plugin automatically handles app discovery for official Telegram and its popular clones (like Telegram X) out-of-the-box. You usually do not need to write any extra code.
-2. **SHA-256 Fingerprint**: Go to [@BotFather](https://t.me/botfather) > Bot Settings > Domain > (Select your domain) and ensure you have provided the **correct SHA-256 fingerprint** of your app's signing certificate. If the fingerprint is missing or incorrect, Android will not verify the link and will default to the browser.
-3. **App Links Verification**: Check your app settings on the device under "Open by default" and ensure "Open supported links" is toggled on.
 
 ## Usage
 
