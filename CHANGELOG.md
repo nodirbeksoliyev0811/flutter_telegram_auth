@@ -1,8 +1,9 @@
 ## 0.1.0
 
 * **New Feature**: Added complete support for **Flutter Web** using a secure popup window approach.
+* **Diagnostic Tool**: Introduced `dart run flutter_telegram_auth:doctor` to help developers verify their platform-specific configurations (Manifest, Info.plist, etc.) automatically.
 * **Platform Updates**: Added Swift Package Manager (SPM) support for iOS to comply with new pub.dev platform requirements (160/160 pub points).
-* **Documentation**: Updated `README.md` to include comprehensive web integration instructions and simplified intent query configurations (`LSApplicationQueriesSchemes` for iOS) to prevent fallback to browser when Telegram is installed.
+* **Documentation**: Updated `README.md` with comprehensive web integration instructions and a cleaner, more focused setup guide.
 
 ## 0.0.9
 

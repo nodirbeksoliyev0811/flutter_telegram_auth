@@ -17,6 +17,15 @@ dependencies:
   flutter_telegram_auth: ^0.1.0
 ```
 
+### 🛠️ Diagnostic Tool (Doctor)
+To verify if your Android, iOS, and Web configurations are set up correctly, you can run the following command in your terminal:
+
+```bash
+dart run flutter_telegram_auth:doctor
+```
+This tool will check your `AndroidManifest.xml`, `Info.plist`, and `web/` files for common configuration errors.
+
+
 ### Android Configuration
 
 Update your app's `android/app/src/main/AndroidManifest.xml` to handle the redirect URI, ensuring `android:autoVerify="true"` is set. Example:
