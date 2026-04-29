@@ -49,10 +49,6 @@ class FlutterTelegramAuthWeb extends FlutterTelegramAuthPlatform {
       'width=$width,height=$height,left=$left,top=$top,status=0,location=0',
     );
 
-    if (popup == null) {
-      throw Exception('Popup blocked. Please allow popups for this site.');
-    }
-
     final completer = Completer<String?>();
 
     late StreamSubscription<html.MessageEvent> subscription;
@@ -73,12 +69,16 @@ class FlutterTelegramAuthWeb extends FlutterTelegramAuthPlatform {
     });
 
     // Check periodically if the user closed the popup manually
-    html.window.setInterval(() {
+    Timer? checkTimer;
+    checkTimer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
       if (popup.closed == true && !completer.isCompleted) {
         completer.complete(null); // User cancelled login
         subscription.cancel();
+        checkTimer?.cancel();
+      } else if (completer.isCompleted) {
+        checkTimer?.cancel();
       }
-    }, 500);
+    });
 
     return completer.future;
   }
