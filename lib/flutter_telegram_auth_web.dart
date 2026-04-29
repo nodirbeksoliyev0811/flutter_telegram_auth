@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'dart:html' as html;
+import 'dart:js_interop';
+import 'package:web/web.dart' as web;
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 import 'flutter_telegram_auth_platform_interface.dart';
@@ -32,7 +33,7 @@ class FlutterTelegramAuthWeb extends FlutterTelegramAuthPlatform {
       );
     }
 
-    final origin = html.window.location.origin;
+    final origin = web.window.location.origin;
     // URL for Telegram Web OAuth
     final authUrl =
         'https://oauth.telegram.org/auth?bot_id=$_clientId&origin=$origin&request_access=write&return_to=$_redirectUri';
@@ -40,40 +41,51 @@ class FlutterTelegramAuthWeb extends FlutterTelegramAuthPlatform {
     // Open popup
     final int width = 550;
     final int height = 470;
-    final int left = (html.window.screen?.width ?? 1000) ~/ 2 - (width ~/ 2);
-    final int top = (html.window.screen?.height ?? 800) ~/ 2 - (height ~/ 2);
+    final int left = (web.window.screen.width) ~/ 2 - (width ~/ 2);
+    final int top = (web.window.screen.height) ~/ 2 - (height ~/ 2);
 
-    final popup = html.window.open(
+    final popup = web.window.open(
       authUrl,
       'TelegramLogin',
       'width=$width,height=$height,left=$left,top=$top,status=0,location=0',
     );
 
+    if (popup == null) {
+      // In package:web, window.open returns a WindowProxy which is usually not null
+      // but we keep the logic for robustness if possible.
+      throw Exception('Popup blocked. Please allow popups for this site.');
+    }
+
     final completer = Completer<String?>();
 
-    late StreamSubscription<html.MessageEvent> subscription;
-
-    // Listen for the postMessage from the popup window
-    subscription = html.window.onMessage.listen((html.MessageEvent event) {
-      if (event.data != null && event.data is String) {
-        final data = event.data as String;
-        if (data.startsWith('tgAuthResult=')) {
-          final jsonStr = data.substring('tgAuthResult='.length);
-          if (!completer.isCompleted) {
-            completer.complete(jsonStr);
+    // Message handler function
+    void onMessage(web.Event event) {
+      if (event.isA<web.MessageEvent>()) {
+        final messageEvent = event as web.MessageEvent;
+        final data = messageEvent.data;
+        if (data != null && data.isA<JSString>()) {
+          final dataStr = (data as JSString).toDart;
+          if (dataStr.startsWith('tgAuthResult=')) {
+            final jsonStr = dataStr.substring('tgAuthResult='.length);
+            if (!completer.isCompleted) {
+              completer.complete(jsonStr);
+            }
+            web.window.removeEventListener('message', onMessage.toJS);
+            popup.close();
           }
-          subscription.cancel();
-          popup.close();
         }
       }
-    });
+    }
+
+    // Listen for the postMessage from the popup window
+    web.window.addEventListener('message', onMessage.toJS);
 
     // Check periodically if the user closed the popup manually
     Timer? checkTimer;
     checkTimer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
-      if (popup.closed == true && !completer.isCompleted) {
+      if (popup.closed && !completer.isCompleted) {
         completer.complete(null); // User cancelled login
-        subscription.cancel();
+        web.window.removeEventListener('message', onMessage.toJS);
         checkTimer?.cancel();
       } else if (completer.isCompleted) {
         checkTimer?.cancel();
