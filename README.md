@@ -42,6 +42,13 @@ Telegram's iOS SDK is distributed via Swift Package Manager (SPM). Since you are
 3. Enter the URL: [https://github.com/TelegramMessenger/telegram-login-ios](https://github.com/TelegramMessenger/telegram-login-ios)
 4. Add the `TelegramLogin` package to your `Runner` target.
 5. In Xcode, select your app target, go to **Signing & Capabilities**, click **+ Capability**, and add **Associated Domains**. Add your Universal Link (e.g., `applinks:app123456-login.tg.dev`).
+6. **Crucial:** Open your `ios/Runner/Info.plist` and add `tg` to `LSApplicationQueriesSchemes` so iOS knows how to detect if Telegram is installed, otherwise it will always open the browser:
+```xml
+<key>LSApplicationQueriesSchemes</key>
+<array>
+  <string>tg</string>
+</array>
+```
 
 ### ⚠️ Important Note About Redirect URIs
 
@@ -52,7 +59,22 @@ Additionally, you can append a custom path to your redirect URI in your Dart cod
 
 ### 🔍 Troubleshooting: Browser opening instead of App
 If the web browser opens instead of the Telegram app (or stays in the browser after login):
-1. **Android 11+ Package Visibility**: Ensure your app can "see" Telegram. This plugin already includes the necessary `<queries>` in its `AndroidManifest.xml`, but if you have a custom setup, make sure you can query `org.telegram.messenger`.
+
+1. **Missing OS Intent Schemes**: 
+   - **iOS**: You MUST add `tg` to `LSApplicationQueriesSchemes` in your `ios/Runner/Info.plist` (see step 6 in iOS configuration).
+   - **Android**: While the plugin handles the default Telegram app, if your users are using **Telegram X**, **Plus Messenger**, or other variants, you MUST add their package names to your app's `android/app/src/main/AndroidManifest.xml`:
+     ```xml
+     <manifest ...>
+         <queries>
+             <intent>
+                 <action android:name="android.intent.action.VIEW" />
+                 <data android:scheme="tg" />
+             </intent>
+             <package android:name="org.telegram.messenger" /> <!-- Official -->
+             <package android:name="org.thunderdog.challegram" /> <!-- Telegram X -->
+         </queries>
+         <application ...>
+     ```
 2. **SHA-256 Fingerprint**: Go to [@BotFather](https://t.me/botfather) > Bot Settings > Domain > (Select your domain) and ensure you have provided the **correct SHA-256 fingerprint** of your app's signing certificate. If the fingerprint is missing or incorrect, Android will not verify the link and will default to the browser.
 3. **App Links Verification**: Check your app settings on the device under "Open by default" and ensure "Open supported links" is toggled on.
 

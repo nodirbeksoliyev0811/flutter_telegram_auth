@@ -1,3 +1,8 @@
+## 0.0.10
+
+* Added Swift Package Manager (SPM) support for iOS to comply with new pub.dev platform requirements (160/160 pub points).
+* Updated `README.md` to include crucial intent query configurations (`LSApplicationQueriesSchemes` for iOS and `<queries>` for Android) to prevent fallback to browser when Telegram is installed.
+
 ## 0.0.9
 
 * Enhanced Telegram app discovery on Android by adding intent-based queries and expanding package visibility.
