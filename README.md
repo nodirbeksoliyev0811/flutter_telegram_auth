@@ -1,8 +1,8 @@
 # flutter_telegram_auth
 
-**Supported Platforms: Android & iOS**
+**Supported Platforms: Android, iOS, & Web**
 
-A Flutter plugin for integrating [Telegram Native SDKs](https://core.telegram.org/bots/telegram-login#native-sdks) for both Android and iOS. This allows over 1 billion users to seamlessly sign up and log in with their Telegram accounts without opening webviews.
+A Flutter plugin for integrating Telegram Login across Android, iOS, and Web. It uses [Telegram Native SDKs](https://core.telegram.org/bots/telegram-login#native-sdks) on mobile platforms, allowing users to seamlessly sign up and log in with their Telegram accounts without opening webviews.
 
 ## Prerequisites
 
