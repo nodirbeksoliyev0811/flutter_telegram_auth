@@ -1,3 +1,9 @@
+## 0.1.1
+
+* **Improvement**: Refined the diagnostic `doctor` tool to detect missing iOS Swift Package Manager (SPM) dependencies.
+* **Documentation**: Enhanced README instructions for iOS setup in Xcode.
+* **Maintenance**: Minor internal improvements and version bump.
+
 ## 0.1.0
 
 * **New Feature**: Added complete support for **Flutter Web** using a secure popup window approach.

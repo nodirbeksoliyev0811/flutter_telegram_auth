@@ -1,6 +1,13 @@
 import 'dart:io';
 
 void main() {
+  // Check if we are in the project root
+  if (!File('pubspec.yaml').existsSync()) {
+    print('Error: This command must be run from the root of your Flutter project.');
+    print('Current directory: ${Directory.current.path}');
+    return;
+  }
+
   print('=========================================');
   print('   Flutter Telegram Auth Doctor 🔍      ');
   print('=========================================');
@@ -99,6 +106,20 @@ void _checkIOS() {
     print(
       '  [!] Runner.entitlements not found. Ensure Associated Domains capability is added in Xcode.',
     );
+  }
+
+  // Check for SPM package
+  final projectPath = 'ios/Runner.xcodeproj/project.pbxproj';
+  if (File(projectPath).existsSync()) {
+    final projectContent = File(projectPath).readAsStringSync();
+    if (projectContent.contains('TelegramLogin')) {
+      print('  [✓] Xcode: TelegramLogin SPM package is linked.');
+    } else {
+      print('  [✗] Xcode: TelegramLogin SPM package not found.');
+      print('      Required for iOS. See README for installation steps.');
+    }
+  } else {
+    print('  [!] Warning: Could not find $projectPath to verify SPM package.');
   }
 }
 
