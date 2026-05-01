@@ -1,3 +1,9 @@
+## 0.1.2
+
+* **iOS Fix**: Embedded the `TelegramLogin` source code directly into the plugin. This removes the external Swift Package Manager (SPM) requirement and fixes dependency resolution issues on all Flutter and CocoaPods versions.
+* **Simplification**: iOS setup is now fully automatic (no more manual "Add Packages" step in Xcode).
+* **Doctor Tool**: Updated the diagnostic tool to reflect the self-contained iOS architecture.
+
 ## 0.1.1
 
 * **Improvement**: Refined the diagnostic `doctor` tool to detect missing iOS Swift Package Manager (SPM) dependencies.

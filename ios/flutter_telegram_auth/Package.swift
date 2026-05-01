@@ -9,7 +9,7 @@ let package = Package(
         .iOS("13.0")
     ],
     products: [
-        .library(name: "flutter-telegram-auth", targets: ["flutter_telegram_auth"])
+        .library(name: "flutter_telegram_auth", targets: ["flutter_telegram_auth"])
     ],
     dependencies: [],
     targets: [
@@ -25,7 +25,6 @@ let package = Package(
 
                 // If you have other resources that need to be bundled with your plugin, refer to
                 // the following instructions to add them:
-                // https://developer.apple.com/documentation/xcode/bundling-resources-with-a-swift-package
             ]
         )
     ]

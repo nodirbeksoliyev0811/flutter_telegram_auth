@@ -1,8 +1,5 @@
 import Flutter
 import UIKit
-#if canImport(TelegramLogin)
-import TelegramLogin
-#endif
 
 public class FlutterTelegramAuthPlugin: NSObject, FlutterPlugin {
   private var expectedHost: String?
@@ -15,7 +12,6 @@ public class FlutterTelegramAuthPlugin: NSObject, FlutterPlugin {
   }
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-    #if canImport(TelegramLogin)
     switch call.method {
     case "init":
       guard let args = call.arguments as? [String: Any],
@@ -43,9 +39,6 @@ public class FlutterTelegramAuthPlugin: NSObject, FlutterPlugin {
     default:
       result(FlutterMethodNotImplemented)
     }
-    #else
-    result(FlutterError(code: "NOT_INSTALLED", message: "TelegramLogin framework not found. Please install the SPM package in your iOS project.", details: nil))
-    #endif
   }
 
   public func application(
@@ -53,12 +46,10 @@ public class FlutterTelegramAuthPlugin: NSObject, FlutterPlugin {
     open url: URL,
     options: [UIApplication.OpenURLOptionsKey : Any] = [:]
   ) -> Bool {
-    #if canImport(TelegramLogin)
     if url.host == expectedHost {
       TelegramLogin.handle(url)
       return true
     }
-    #endif
     return false
   }
 
@@ -67,14 +58,12 @@ public class FlutterTelegramAuthPlugin: NSObject, FlutterPlugin {
     continue userActivity: NSUserActivity,
     restorationHandler: @escaping ([Any]) -> Void
   ) -> Bool {
-    #if canImport(TelegramLogin)
     if userActivity.activityType == NSUserActivityTypeBrowsingWeb,
        let url = userActivity.webpageURL,
        url.host == expectedHost {
       TelegramLogin.handle(url)
       return true
     }
-    #endif
     return false
   }
 }

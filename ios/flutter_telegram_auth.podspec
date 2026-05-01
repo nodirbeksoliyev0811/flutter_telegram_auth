@@ -4,14 +4,14 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_telegram_auth'
-  s.version          = '0.0.1'
-  s.summary          = 'A new Flutter plugin project.'
+  s.version          = '0.1.2'
+  s.summary          = 'Flutter plugin for Telegram Login across Android, iOS, and Web.'
   s.description      = <<-DESC
-A new Flutter plugin project.
+A Flutter plugin for integrating Telegram Login across Android, iOS, and Web. Uses native SDKs for mobile without webviews.
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'https://github.com/nodirbeksoliyev0811/flutter_telegram_auth'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.author           = { 'Nodirbek Soliyev' => 'nodirbeksoliyev0811@gmail.com' }
   s.source           = { :path => '.' }
   s.source_files = 'flutter_telegram_auth/Sources/flutter_telegram_auth/**/*'
   s.dependency 'Flutter'

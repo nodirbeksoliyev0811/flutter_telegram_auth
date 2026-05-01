@@ -44,20 +44,20 @@ Update your app's `android/app/src/main/AndroidManifest.xml` to handle the redir
 
 ### iOS Configuration
 
-Telegram's iOS SDK is distributed via Swift Package Manager (SPM). Since you are using a standard Flutter plugin, you need to add the package to your iOS workspace:
+The Telegram iOS SDK is now embedded directly within the plugin, so you **no longer need to manually add it via Swift Package Manager (SPM)**.
 
-1. Open `ios/Runner.xcworkspace` in Xcode.
-2. Go to **File > Add Package Dependencies...**
-3. Enter the URL: [https://github.com/TelegramMessenger/telegram-login-ios](https://github.com/TelegramMessenger/telegram-login-ios)
-4. Add the `TelegramLogin` package to your `Runner` target.
-5. In Xcode, select your app target, go to **Signing & Capabilities**, click **+ Capability**, and add **Associated Domains**. Add your Universal Link (e.g., `applinks:app123456-login.tg.dev`).
-6. **Crucial:** Open your `ios/Runner/Info.plist` and add `tg` to `LSApplicationQueriesSchemes` so iOS knows how to detect if Telegram is installed, otherwise it will always open the browser:
-```xml
-<key>LSApplicationQueriesSchemes</key>
-<array>
-  <string>tg</string>
-</array>
-```
+#### 1. Setup
+Just run `flutter pub get` and the dependency will be available automatically for both CocoaPods and SPM builds.
+
+#### 2. Capabilities & Info.plist
+*   **Associated Domains**: In Xcode, select your app target, go to **Signing & Capabilities**, click **+ Capability**, and add **Associated Domains**. Add your Universal Link (e.g., `applinks:app123456-login.tg.dev`).
+*   **App Detection**: Open your `ios/Runner/Info.plist` and add `tg` to `LSApplicationQueriesSchemes`. This is required for the SDK to detect the Telegram app:
+    ```xml
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>tg</string>
+    </array>
+    ```
 
 ### Web Configuration
 

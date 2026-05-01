@@ -108,19 +108,7 @@ void _checkIOS() {
     );
   }
 
-  // Check for SPM package
-  final projectPath = 'ios/Runner.xcodeproj/project.pbxproj';
-  if (File(projectPath).existsSync()) {
-    final projectContent = File(projectPath).readAsStringSync();
-    if (projectContent.contains('TelegramLogin')) {
-      print('  [✓] Xcode: TelegramLogin SPM package is linked.');
-    } else {
-      print('  [✗] Xcode: TelegramLogin SPM package not found.');
-      print('      Required for iOS. See README for installation steps.');
-    }
-  } else {
-    print('  [!] Warning: Could not find $projectPath to verify SPM package.');
-  }
+  print('  [✓] Xcode: TelegramLogin is now embedded in the plugin (Self-contained).');
 }
 
 void _checkWeb() {
