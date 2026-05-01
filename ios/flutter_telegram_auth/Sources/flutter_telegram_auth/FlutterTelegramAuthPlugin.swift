@@ -1,9 +1,11 @@
 import Flutter
 import UIKit
 
+@MainActor
 public class FlutterTelegramAuthPlugin: NSObject, FlutterPlugin {
   private var expectedHost: String?
 
+  @MainActor
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "flutter_telegram_auth", binaryMessenger: registrar.messenger())
     let instance = FlutterTelegramAuthPlugin()

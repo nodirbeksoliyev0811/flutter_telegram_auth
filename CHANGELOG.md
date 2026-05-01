@@ -1,3 +1,7 @@
+## 0.1.3
+
+* **iOS Fix**: Resolved Swift concurrency build errors (`ActorIsolatedCall`) by marking the plugin as `@MainActor`.
+
 ## 0.1.2
 
 * **iOS Fix**: Embedded the `TelegramLogin` source code directly into the plugin. This removes the external Swift Package Manager (SPM) requirement and fixes dependency resolution issues on all Flutter and CocoaPods versions.

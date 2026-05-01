@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_telegram_auth'
-  s.version          = '0.1.2'
+  s.version          = '0.1.3'
   s.summary          = 'Flutter plugin for Telegram Login across Android, iOS, and Web.'
   s.description      = <<-DESC
 A Flutter plugin for integrating Telegram Login across Android, iOS, and Web. Uses native SDKs for mobile without webviews.
