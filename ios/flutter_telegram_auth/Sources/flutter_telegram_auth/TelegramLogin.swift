@@ -108,25 +108,36 @@ public enum TelegramLogin {
         startWebAuthSession(config: config, completion: completion)
     }
 
+    private static var _isHandling = false
+
     /// Handle the OAuth callback URL and exchange the code for an id_token.
     @MainActor
     public static func handle(
         _ url: URL,
         completion: (@Sendable (Result<LoginData, Error>) -> Void)? = nil
     ) {
-        let callback = completion ?? _pendingCompletion
-        _pendingCompletion = nil
+        guard let config = _configuration else { return }
 
-        guard let callback else { return }
-
-        guard let config = _configuration else {
-            callback(.failure(TelegramLoginError.notConfigured))
+        // Ensure we only handle the callback once (race condition between UL and WebAuthSession)
+        if _isHandling { return }
+        
+        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+              let queryItems = components.queryItems,
+              queryItems.contains(where: { $0.name == "code" }) else {
             return
         }
 
-        guard let code = URLComponents(url: url, resolvingAgainstBaseURL: false)?
-            .queryItems?.first(where: { $0.name == "code" })?.value
-        else {
+        _isHandling = true
+        let callback = completion ?? _pendingCompletion
+        _pendingCompletion = nil
+
+        guard let callback else { 
+            _isHandling = false
+            return 
+        }
+
+        guard let code = queryItems.first(where: { $0.name == "code" })?.value else {
+            _isHandling = false
             callback(.failure(TelegramLoginError.noAuthorizationCode))
             return
         }
@@ -134,8 +145,10 @@ public enum TelegramLogin {
         Task {
             do {
                 let token = try await exchangeCode(code, config: config)
+                _isHandling = false
                 callback(.success(LoginData(idToken: token)))
             } catch {
+                _isHandling = false
                 callback(.failure(error))
             }
         }
@@ -151,10 +164,15 @@ public enum TelegramLogin {
             return
         }
 
+        _isHandling = false
+
         let handleResult: (URL?, Error?) -> Void = { callbackURL, error in
             _authSession = nil
 
             if let error {
+                // If we already handled the login via Universal Link, ignore the session error
+                if _isHandling { return }
+
                 if (error as? ASWebAuthenticationSessionError)?.code == .canceledLogin {
                     completion(.failure(TelegramLoginError.cancelled))
                 } else {
@@ -164,6 +182,7 @@ public enum TelegramLogin {
             }
 
             guard let callbackURL else {
+                if _isHandling { return }
                 completion(.failure(TelegramLoginError.noAuthorizationCode))
                 return
             }
@@ -185,8 +204,9 @@ public enum TelegramLogin {
                 handleResult(callbackURL, error)
             }
         } else {
-            let callbackScheme = config.fallbackScheme ?? URLComponents(string: config.redirectUri)?.scheme
-            session = ASWebAuthenticationSession(url: authURL, callbackURLScheme: callbackScheme) { callbackURL, error in
+            // Fallback for older iOS: ASWebAuthenticationSession doesn't catch 'https' well, 
+            // so we rely on the app's Universal Link handler (AppDelegate/Plugin).
+            session = ASWebAuthenticationSession(url: authURL, callbackURLScheme: nil) { callbackURL, error in
                 handleResult(callbackURL, error)
             }
         }

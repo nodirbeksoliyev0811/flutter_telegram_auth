@@ -1,3 +1,8 @@
+## 0.1.4
+
+* **iOS Fix**: Resolved "Login was cancelled" errors caused by race conditions between Universal Links and `ASWebAuthenticationSession`.
+* **iOS Improvement**: Enhanced reliability on older iOS versions by relying on the app's Universal Link handler when the system session doesn't catch the redirect.
+
 ## 0.1.3
 
 * **iOS Fix**: Resolved Swift concurrency build errors (`ActorIsolatedCall`) by marking the plugin as `@MainActor`.
